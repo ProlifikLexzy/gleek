@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gleek.Web", "Gleek.Web\Gleek.Web.csproj", "{D02F9854-6F90-4822-B529-0952DCAAA19F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gleek.Core", "Gleek.Core\Gleek.Core.csproj", "{B719A616-997A-4841-BFD1-038790E0BC16}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{D02F9854-6F90-4822-B529-0952DCAAA19F}.Release|x64.Build.0 = Release|Any CPU
 		{D02F9854-6F90-4822-B529-0952DCAAA19F}.Release|x86.ActiveCfg = Release|Any CPU
 		{D02F9854-6F90-4822-B529-0952DCAAA19F}.Release|x86.Build.0 = Release|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Debug|x64.Build.0 = Debug|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Debug|x86.Build.0 = Debug|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Release|x64.ActiveCfg = Release|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Release|x64.Build.0 = Release|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Release|x86.ActiveCfg = Release|Any CPU
+		{B719A616-997A-4841-BFD1-038790E0BC16}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
