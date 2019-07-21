@@ -20,11 +20,8 @@ namespace Gleek.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            TempData["failed"] = null;
-
             if (!ModelState.IsValid)
             {
-                TempData["failed"] = "failed";
                 model.Password = string.Empty;
                 return View(model);
             }
@@ -32,7 +29,6 @@ namespace Gleek.Web.Controllers
             if (!username.Equals(model.Username, StringComparison.InvariantCultureIgnoreCase) ||
              !password.Equals(model.Password))
             {
-                TempData["failed"] = "failed";
                 ModelState.AddModelError("Error", "Username or password is invalid");
                 return View(model);
             }

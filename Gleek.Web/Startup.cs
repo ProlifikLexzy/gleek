@@ -31,8 +31,7 @@ namespace Gleek.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddAuthentication()
-            .AddCookie(options => 
+            services.AddAuthentication().AddCookie(options => 
             {
                 options.LoginPath ="/Auth/Login";
                 options.SlidingExpiration = true;
