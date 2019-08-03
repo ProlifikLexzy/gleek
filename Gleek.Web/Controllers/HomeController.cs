@@ -7,16 +7,17 @@ using Microsoft.AspNetCore.Mvc;
 using Gleek.Web.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Options;
 
 namespace Gleek.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IConfiguration configuration;
+        private Person person;
 
-        public HomeController(IConfiguration configuration)
+        public HomeController(IOptions<Person> personOptions)
         {
-            this.configuration = configuration;
+            this.person = personOptions.Value;
         }
 
         [HttpPost]
@@ -28,8 +29,7 @@ namespace Gleek.Web.Controllers
         [AllowAnonymous]
         public string Index()
         {
-            var name = configuration["Person:Addresses:1:Street"];
-            return name;
+            return this.person.FirstName;
         }
 
         public IActionResult GoToAdmin()
