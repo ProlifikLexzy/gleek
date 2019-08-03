@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" class="h-100" id="login-page2">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Gleek - Bootstrap Admin Dashboard HTML Template</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="~/assets/images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="~/assets/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="h-100">
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <div class="login-bg2 h-100">
+        <div class="container-fluid h-100">
+               @RenderBody()
+        </div>
+    </div>
+    <!-- #/ container -->
+    <!-- Common JS -->
+    <script src="~/assets/plugins/common/common.min.js"></script>
+    <!-- Custom script -->
+    <script src="~/assets/js/custom.min.js"></script>
+    <script src="~/assets/js/settings.js"></script>
+    <script src="~/assets/js/gleek.js"></script>
+</body>
+
+</html>
+
