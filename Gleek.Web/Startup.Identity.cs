@@ -1,4 +1,5 @@
 ﻿using Gleek.Core.Context;
+using Gleek.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -13,8 +14,7 @@ namespace Gleek.Web
     {
         public void ConfigureIdentity(IServiceCollection services)
         {
-            services.AddDefaultIdentity<IdentityUser>()
-            .AddEntityFrameworkStores<GleekDbContext>();
+            services.AddIdentity<GleekUser, GleekRole>().AddEntityFrameworkStores<GleekDbContext>();
         }
     }
 }

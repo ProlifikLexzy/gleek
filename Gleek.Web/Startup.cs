@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Gleek.Core.Context;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -28,8 +30,8 @@ namespace Gleek.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            RegisterService(services);
-            services.Configure<Person>(options => 
+
+            services.Configure<Person>(options =>
             {
                 Configuration.GetSection("Person").Bind(options);
             });
@@ -40,7 +42,7 @@ namespace Gleek.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-       
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
            .AddCookie(options =>
             {
@@ -58,7 +60,16 @@ namespace Gleek.Web
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<GleekDbContext>(options =>
+            {
+                var connectionstring = Configuration.GetConnectionString("default");
+                options.UseSqlServer(connectionstring);
+            });
+
+            RegisterService(services);
             ConfigureIdentity(services);
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -87,8 +98,8 @@ namespace Gleek.Web
                 routes.MapRoute("areaRoute", "{area=exists}/{controller=Dashboard}/{action=index}/{id?}");
             });
 
+
         }
 
-        
     }
 }

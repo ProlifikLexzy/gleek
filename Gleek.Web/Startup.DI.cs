@@ -13,7 +13,7 @@ namespace Gleek.Web
     {
         public void RegisterService(IServiceCollection services)
         {
-            //services.AddTransient<IRepository<Staff>, EntityRepository<Staff>>();
+            services.AddTransient<IRepository<Staff>, EntityRepository<Staff>>();
             //services.AddTransient(typeof(IRepository<>), typeof(EntityRepository<>));
             services.AddScoped<GleekDbContext>();
         }
