@@ -5,17 +5,31 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System;
+using System.Linq;
+using Gleek.Core.Repository;
+using Gleek.Core.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace Gleek.Web.Controllers
 {
     [AllowAnonymous]
     public class AuthController : Controller
     {
+        private readonly IRepository<Staff> staffRepository;
+        private readonly UserManager<IdentityUser> userManager;
+
+        public AuthController(IRepository<Staff> staffRepository, UserManager<IdentityUser> userManager)
+        {
+            this.staffRepository = staffRepository;
+            this.userManager = userManager;
+           
+        }
         
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (this.ModelState.IsValid && ValidateCredential(model.Username, model.Password))
+            if (this.ModelState.IsValid && await ValidateCredential(model.Username, model.Password))
             {
                 var claimsId = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
                 var claim = new Claim("FullName", model.Username);
@@ -24,7 +38,7 @@ namespace Gleek.Web.Controllers
                 claimsId.AddClaim(claimLocation);
 
                 var principal = new ClaimsPrincipal(claimsId);
-                this.HttpContext.SignInAsync(principal);
+                await this.HttpContext.SignInAsync(principal);
 
                 return RedirectToAction("index", "dashboard", new { area = "Admin" });
             }
@@ -32,9 +46,12 @@ namespace Gleek.Web.Controllers
             return View(model);
         }
 
-        public bool ValidateCredential(string username, string password)
+        public async Task<bool> ValidateCredential(string username, string password)
         {
-            return ("admin@admin.com".Equals(username, StringComparison.OrdinalIgnoreCase) & password == "admin") ? true : false;
+            return await userManager.CheckPasswordAsync(new IdentityUser()
+            {
+                UserName = username
+            }, password);
         }
 
         [HttpGet]

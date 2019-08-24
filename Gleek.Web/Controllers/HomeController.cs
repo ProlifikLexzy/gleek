@@ -26,10 +26,9 @@ namespace Gleek.Web.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        public string Index()
+        public IActionResult Index()
         {
-            return this.person.FirstName;
+            return View();
         }
 
         public IActionResult GoToAdmin()

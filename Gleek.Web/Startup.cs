@@ -16,7 +16,7 @@ using Microsoft.Extensions.Options;
 
 namespace Gleek.Web
 {
-    public class Startup
+    public partial class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -28,6 +28,7 @@ namespace Gleek.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            RegisterService(services);
             services.Configure<Person>(options => 
             {
                 Configuration.GetSection("Person").Bind(options);
@@ -39,14 +40,7 @@ namespace Gleek.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-
-        //    Action<CookieAuthenticationOptions> configureOptions =  options=>
-        //{
-        //        options.LoginPath = "Auth/Login";
-        //        options.SlidingExpiration = true;
-        //        options.ExpireTimeSpan = TimeSpan.FromHours(1);
-        //    };
+       
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
            .AddCookie(options =>
             {
@@ -54,7 +48,6 @@ namespace Gleek.Web
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromHours(1);
             });
-
 
             services.AddMvc(config =>
             {
@@ -64,14 +57,9 @@ namespace Gleek.Web
 
                 config.Filters.Add(new AuthorizeFilter(policy));
             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-        }
 
-        //public void ConfigureCookieOption(CookieAuthenticationOptions options)
-        //{
-        //    options.LoginPath = "Auth/Login";
-        //    options.SlidingExpiration = true;
-        //    options.ExpireTimeSpan = TimeSpan.FromHours(1);
-        //}
+            ConfigureIdentity(services);
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -93,12 +81,14 @@ namespace Gleek.Web
 
             app.UseMvc(routes =>
             {
-                
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("areaRoute", "{area=exists}/{controller=Dashboard}/{action=index}/{id?}");
             });
+
         }
+
+        
     }
 }
