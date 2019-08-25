@@ -17,9 +17,9 @@ namespace Gleek.Web.Controllers
     public class AuthController : Controller
     {
         private readonly IRepository<Staff> staffRepository;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<GleekUser> userManager;
 
-        public AuthController(IRepository<Staff> staffRepository, UserManager<IdentityUser> userManager)
+        public AuthController(IRepository<Staff> staffRepository, UserManager<GleekUser> userManager)
         {
             this.staffRepository = staffRepository;
             this.userManager = userManager;
@@ -48,7 +48,7 @@ namespace Gleek.Web.Controllers
 
         public async Task<bool> ValidateCredential(string username, string password)
         {
-            return await userManager.CheckPasswordAsync(new IdentityUser()
+            return await userManager.CheckPasswordAsync(new GleekUser()
             {
                 UserName = username
             }, password);
