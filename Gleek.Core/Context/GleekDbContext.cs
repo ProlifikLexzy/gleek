@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace Gleek.Core.Context
 {
-    public class GleekDbContext: IdentityDbContext<GleekUser, GleekRole, int, GleekUserClaim, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
+    public class GleekDbContext : IdentityDbContext<GleekUser, GleekRole, int, GleekUserClaim, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public GleekDbContext(DbContextOptions<GleekDbContext> options): base(options)
+        public GleekDbContext(DbContextOptions<GleekDbContext> options) : base(options)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,3 +22,4 @@ namespace Gleek.Core.Context
         }
     }
 }
+

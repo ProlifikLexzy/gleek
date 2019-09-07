@@ -14,7 +14,8 @@ namespace Gleek.Web
     {
         public void ConfigureIdentity(IServiceCollection services)
         {
-            services.AddIdentity<GleekUser, GleekRole>().AddEntityFrameworkStores<GleekDbContext>();
+            services.AddIdentity<GleekUser, GleekRole>()
+                .AddEntityFrameworkStores<GleekDbContext>();
         }
     }
 }

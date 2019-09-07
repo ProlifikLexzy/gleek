@@ -23,7 +23,6 @@ namespace Gleek.Web.Controllers
         {
             this.staffRepository = staffRepository;
             this.userManager = userManager;
-           
         }
         
         [HttpPost]
