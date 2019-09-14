@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gleek.Core.Models
 {
-    public class GleekRole: IdentityRole<int>
+    public class GleekRole: IdentityRole<Guid>
     {
         
     }

@@ -17,8 +17,6 @@ namespace Gleek.Core.Services
             this.accountService = accountService;
         }
 
-        public IDictionary<string, string> Errors { get; set; }  = new Dictionary<string, string>();
-
         public bool CreateCustomer(Customer customer)
         {
             if (customer == null)
@@ -27,6 +25,7 @@ namespace Gleek.Core.Services
 
             if (string.IsNullOrEmpty(customer.FirstName) && string.IsNullOrEmpty(customer.LastName))
             {
+                Errors.Add("FullName", "First and last name is required.");
                 Errors["FullName"] = "First and last name is required.";
                 return false;
             }
@@ -43,7 +42,7 @@ namespace Gleek.Core.Services
             {
                 foreach (var accountNo in customer.AccountList)
                 {
-                    this.accountService.CreateAccount(customer.Id, accountNo.AccountNumber);
+                    this.accountService.CreateAccount(customer.Id, accountNo.AccountNumber, customer.CreatedBy_Id);
                 }
             }
             catch (Exception)

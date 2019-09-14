@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gleek.Core.Models
 {
-    public class GleekUserClaim: IdentityUserClaim<int>
+    public class GleekUserClaim: IdentityUserClaim<Guid>
     {
         
     }

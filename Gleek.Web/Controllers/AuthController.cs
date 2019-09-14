@@ -24,20 +24,28 @@ namespace Gleek.Web.Controllers
             this.staffRepository = staffRepository;
             this.userManager = userManager;
         }
-        
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await this.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if (this.ModelState.IsValid && await ValidateCredential(model.Username, model.Password))
+            var user = await ValidateCredential(model.Username, model.Password);
+            if (this.ModelState.IsValid && user != null)
             {
-                var claimsId = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimsIdentity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                var claimId = new Claim(ClaimTypes.NameIdentifier, user.Id.ToString());
                 var claim = new Claim("FullName", model.Username);
                 var claimLocation = new Claim("Location", "Abuja");
-                claimsId.AddClaim(claim);
-                claimsId.AddClaim(claimLocation);
+                claimsIdentity.AddClaims(new[] { claimId, claim, claimLocation });
 
-                var principal = new ClaimsPrincipal(claimsId);
-                await this.HttpContext.SignInAsync(principal);
+                var principal = new ClaimsPrincipal(claimsIdentity);
+                await this.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
 
                 return RedirectToAction("index", "dashboard", new { area = "Admin" });
             }
@@ -45,12 +53,14 @@ namespace Gleek.Web.Controllers
             return View(model);
         }
 
-        public async Task<bool> ValidateCredential(string username, string password)
+        public async Task<GleekUser> ValidateCredential(string username, string password)
         {
-            return await userManager.CheckPasswordAsync(new GleekUser()
-            {
-                UserName = username
-            }, password);
+            var user = await userManager.FindByNameAsync(username);
+
+            if (user == null)
+                return null;
+
+            return (await userManager.CheckPasswordAsync(user, password)) ? user : null;
         }
 
         [HttpGet]

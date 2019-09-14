@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace Gleek.Core.Models
 {
-    public class Customer: IEntity
+    public class Customer: BaseEntity
     {
         public string LastName { get; set; }
         public string FirstName { get; set; }
 
         public IEnumerable<Account> AccountList { get; set; }
-        public Guid Id { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
-
-    
-
 }

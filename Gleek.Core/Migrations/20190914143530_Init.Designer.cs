@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Gleek.Core.Migrations
 {
     [DbContext(typeof(GleekDbContext))]
-    [Migration("20190824132427_init")]
-    partial class init
+    [Migration("20190914143530_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,9 +23,8 @@ namespace Gleek.Core.Migrations
 
             modelBuilder.Entity("Gleek.Core.Models.GleekRole", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -48,9 +47,8 @@ namespace Gleek.Core.Migrations
 
             modelBuilder.Entity("Gleek.Core.Models.GleekUser", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("AccessFailedCount");
 
@@ -76,6 +74,8 @@ namespace Gleek.Core.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256);
 
+                    b.Property<string>("PassportNo");
+
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
@@ -89,6 +89,8 @@ namespace Gleek.Core.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
+                    b.Property<int>("UserType");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -100,6 +102,49 @@ namespace Gleek.Core.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b3ca9941-c556-4189-8c4a-538959f24e43"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8edf20c9-b0ff-40b1-aa9a-659c5eeb5961",
+                            Email = "superadmin@gleek.com",
+                            EmailConfirmed = true,
+                            FirstName = "Gleek",
+                            LastName = "United",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SUPERADMIN@GLEEK.COM",
+                            NormalizedUserName = "SUPERADMIN@GLEEK.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAECCHCmRrbYy9RgfmV6rcwYUuU3F2R+xAVAgVtIeXwy6F5EeGWYSMdqzIZ95AEGyKUA==",
+                            PhoneNumber = "080062066851",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "b3ca9941-c556-4189-8c4a-538959f24e43",
+                            TwoFactorEnabled = false,
+                            UserName = "superadmin@gleek.com",
+                            UserType = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("13fd605b-6828-46d0-ac6f-5c69fcd9da64"),
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "5808f5c8-024e-48e6-919a-d5cc7f57cdde",
+                            Email = "customer@yahoo.com",
+                            EmailConfirmed = true,
+                            FirstName = "Gleek",
+                            LastName = "United",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "CUSTOMER@YAHOO.COM",
+                            NormalizedUserName = "CUSTOMER@YAHOO.COM",
+                            PassportNo = "X12345554",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKqEg81yYl06VHzZ8tijZMGVPw/XllW527e7xUI4lVzT65pC1V4gkbX1mrDaEg0maA==",
+                            PhoneNumber = "080062066852",
+                            PhoneNumberConfirmed = true,
+                            SecurityStamp = "13fd605b-6828-46d0-ac6f-5c69fcd9da64",
+                            TwoFactorEnabled = false,
+                            UserName = "customer@yahoo.com",
+                            UserType = 1
+                        });
                 });
 
             modelBuilder.Entity("Gleek.Core.Models.GleekUserClaim", b =>
@@ -112,7 +157,7 @@ namespace Gleek.Core.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<int>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("Id");
 
@@ -121,7 +166,7 @@ namespace Gleek.Core.Migrations
                     b.ToTable("AspNetUserClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -131,7 +176,7 @@ namespace Gleek.Core.Migrations
 
                     b.Property<string>("ClaimValue");
 
-                    b.Property<int>("RoleId");
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("Id");
 
@@ -140,7 +185,7 @@ namespace Gleek.Core.Migrations
                     b.ToTable("AspNetRoleClaims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.Property<string>("LoginProvider");
 
@@ -148,7 +193,7 @@ namespace Gleek.Core.Migrations
 
                     b.Property<string>("ProviderDisplayName");
 
-                    b.Property<int>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -157,11 +202,11 @@ namespace Gleek.Core.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
-                    b.Property<int>("UserId");
+                    b.Property<Guid>("UserId");
 
-                    b.Property<int>("RoleId");
+                    b.Property<Guid>("RoleId");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -170,9 +215,9 @@ namespace Gleek.Core.Migrations
                     b.ToTable("AspNetUserRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
-                    b.Property<int>("UserId");
+                    b.Property<Guid>("UserId");
 
                     b.Property<string>("LoginProvider");
 
@@ -193,7 +238,7 @@ namespace Gleek.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
                 {
                     b.HasOne("Gleek.Core.Models.GleekRole")
                         .WithMany()
@@ -201,7 +246,7 @@ namespace Gleek.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<System.Guid>", b =>
                 {
                     b.HasOne("Gleek.Core.Models.GleekUser")
                         .WithMany()
@@ -209,7 +254,7 @@ namespace Gleek.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<System.Guid>", b =>
                 {
                     b.HasOne("Gleek.Core.Models.GleekRole")
                         .WithMany()
@@ -222,7 +267,7 @@ namespace Gleek.Core.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
                 {
                     b.HasOne("Gleek.Core.Models.GleekUser")
                         .WithMany()

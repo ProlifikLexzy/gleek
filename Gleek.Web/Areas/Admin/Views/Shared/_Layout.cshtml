@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -24,7 +24,6 @@
     <!--*******************
         Preloader end
     ********************-->
-    
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -33,32 +32,35 @@
             Nav header start
         ***********************************-->
         <div class="nav-header">
-            <div class="brand-logo"><a href="index.html"><b><img src="~/assets/images/logo.png" alt=""> </b><span class="brand-title"><img src="~/assets/images/logo-text.png" alt=""></span></a>
+            <div class="brand-logo">
+                <a href="index.html"><b><img src="~/assets/images/logo.png" alt=""> </b><span class="brand-title"><img src="~/assets/images/logo-text.png" alt=""></span></a>
             </div>
             <div class="nav-control">
-                <div class="hamburger"><span class="line"></span>  <span class="line"></span>  <span class="line"></span>
+                <div class="hamburger">
+                    <span class="line"></span>  <span class="line"></span>  <span class="line"></span>
                 </div>
             </div>
         </div>
         <!--**********************************
             Nav header end
         ***********************************-->
-
         <!--**********************************
             Header start
         ***********************************-->
-        <div class="header">    
+        <div class="header">
             <div class="header-content">
                 <div class="header-left">
                     <ul>
-                        <li class="icons position-relative"><a href="javascript:void(0)"><i class="icon-magnifier f-s-16"></i></a>
+                        <li class="icons position-relative">
+                            <a href="javascript:void(0)"><i class="icon-magnifier f-s-16"></i></a>
                             <div class="drop-down animated bounceInDown">
                                 <div class="dropdown-content-body">
                                     <div class="header-search" id="header-search">
                                         <form action="#">
                                             <div class="input-group">
                                                 <input type="text" class="form-control" placeholder="Search">
-                                                <div class="input-group-append"><span class="input-group-text"><i class="icon-magnifier"></i></span>
+                                                <div class="input-group-append">
+                                                    <span class="input-group-text"><i class="icon-magnifier"></i></span>
                                                 </div>
                                             </div>
                                         </form>
@@ -77,11 +79,14 @@
                             <div class="drop-down dropdown-profile animated bounceInDown">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li><a href="javascript:void()"><i class="icon-user"></i> <span>My Profile</span></a>
+                                        <li>
+                                            <a href="javascript:void()"><i class="icon-user"></i> <span>My Profile</span></a>
                                         </li>
                                         <li>
-                                            <a href="javascript:void()"><i class="icon-power"></i> 
-                                            <span>Logout</span></a>
+                                            <a asp-controller="auth" asp-action="logout">
+                                                <i class="icon-power"></i>
+                                                <span>Logout</span>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -94,11 +99,10 @@
         <!--**********************************
             Header end
         ***********************************-->
-
         <!--**********************************
             Sidebar start
         ***********************************-->
-        <div class="nk-sidebar">           
+        <div class="nk-sidebar">
             <div class="nk-nav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Dashboard</li>
@@ -113,7 +117,6 @@
         <!--**********************************
             Sidebar end
         ***********************************-->
-
         <!--**********************************
             Content body start
         ***********************************-->
@@ -125,7 +128,8 @@
                     </div>
                     <div class="col p-md-0">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a>
+                            <li class="breadcrumb-item">
+                                <a href="javascript:void(0)">Home</a>
                             </li>
                             <li class="breadcrumb-item active">
                                 <a href="">Restaurant</a>
@@ -139,8 +143,6 @@
         <!--**********************************
             Content body end
         ***********************************-->
-        
-        
         <!--**********************************
             Footer start
         ***********************************-->
@@ -156,7 +158,6 @@
     <!--**********************************
         Main wrapper end
     ***********************************-->
-
     <!--**********************************
         Scripts
     ***********************************-->
@@ -164,7 +165,7 @@
     <script src="~/assets/js/custom.min.js"></script>
     <script src="~/assets/js/settings.js"></script>
     <script src="~/assets/js/gleek.js"></script>
-    
+
     <!-- Chartjs chart -->
     <script src="~/assets/plugins/chart.js/Chart.bundle.min.js"></script>
     <script src="~/assets/plugins/d3v3/index.js"></script>

@@ -1,4 +1,5 @@
 ﻿using Gleek.Core.Models;
+using Gleek.Core.Models.Maps;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Gleek.Core.Context
 {
-    public class GleekDbContext : IdentityDbContext<GleekUser, GleekRole, int, GleekUserClaim, IdentityUserRole<int>, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
+    public class GleekDbContext : IdentityDbContext<GleekUser, GleekRole, Guid, GleekUserClaim, IdentityUserRole<Guid>, IdentityUserLogin<Guid>, IdentityRoleClaim<Guid>, IdentityUserToken<Guid>>
     {
         public GleekDbContext(DbContextOptions<GleekDbContext> options) : base(options)
         {
@@ -18,6 +19,7 @@ namespace Gleek.Core.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new GleekUserMap());
             base.OnModelCreating(modelBuilder);
         }
     }

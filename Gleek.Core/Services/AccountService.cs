@@ -14,11 +14,22 @@ namespace Gleek.Core.Services
         {
         }
 
-        public bool CreateAccount(Guid customerId, string accountNo)
+        public bool CreateAccount(Account account)
         {
+            return CreateAccount(account.CustomerId, account.AccountNumber, account.CreatedBy_Id);
+        }
+
+        public bool CreateAccount(Guid customerId, string accountNo, Guid createdby)
+        {
+            if (string.IsNullOrEmpty(accountNo))
+            {
+                Errors.Add("AccountNo", "Account number is required");
+                return false;
+            }
             var account = new Account();
             account.CustomerId = customerId;
             account.AccountNumber = accountNo;
+            account.CreatedBy_Id = createdby;
 
             this.Create(account);
             return true;

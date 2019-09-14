@@ -97,8 +97,6 @@ namespace Gleek.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("areaRoute", "{area=exists}/{controller=Dashboard}/{action=index}/{id?}");
             });
-
-
         }
 
     }

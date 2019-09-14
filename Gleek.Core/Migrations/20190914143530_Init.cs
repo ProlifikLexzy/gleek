@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Gleek.Core.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,8 +12,7 @@ namespace Gleek.Core.Migrations
                 name: "AspNetRoles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true)
@@ -27,8 +26,7 @@ namespace Gleek.Core.Migrations
                 name: "AspNetUsers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -44,7 +42,9 @@ namespace Gleek.Core.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     LastName = table.Column<string>(nullable: true),
-                    FirstName = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(nullable: true),
+                    PassportNo = table.Column<string>(nullable: true),
+                    UserType = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -57,7 +57,7 @@ namespace Gleek.Core.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RoleId = table.Column<int>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -78,7 +78,7 @@ namespace Gleek.Core.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
                 },
@@ -100,7 +100,7 @@ namespace Gleek.Core.Migrations
                     LoginProvider = table.Column<string>(nullable: false),
                     ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
-                    UserId = table.Column<int>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,8 +117,8 @@ namespace Gleek.Core.Migrations
                 name: "AspNetUserRoles",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
-                    RoleId = table.Column<int>(nullable: false)
+                    UserId = table.Column<Guid>(nullable: false),
+                    RoleId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -141,7 +141,7 @@ namespace Gleek.Core.Migrations
                 name: "AspNetUserTokens",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<Guid>(nullable: false),
                     LoginProvider = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
@@ -156,6 +156,16 @@ namespace Gleek.Core.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PassportNo", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "UserType" },
+                values: new object[] { new Guid("b3ca9941-c556-4189-8c4a-538959f24e43"), 0, "8edf20c9-b0ff-40b1-aa9a-659c5eeb5961", "superadmin@gleek.com", true, "Gleek", "United", false, null, "SUPERADMIN@GLEEK.COM", "SUPERADMIN@GLEEK.COM", null, "AQAAAAEAACcQAAAAECCHCmRrbYy9RgfmV6rcwYUuU3F2R+xAVAgVtIeXwy6F5EeGWYSMdqzIZ95AEGyKUA==", "080062066851", true, "b3ca9941-c556-4189-8c4a-538959f24e43", false, "superadmin@gleek.com", 1 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PassportNo", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "UserType" },
+                values: new object[] { new Guid("13fd605b-6828-46d0-ac6f-5c69fcd9da64"), 0, "5808f5c8-024e-48e6-919a-d5cc7f57cdde", "customer@yahoo.com", true, "Gleek", "United", false, null, "CUSTOMER@YAHOO.COM", "CUSTOMER@YAHOO.COM", "X12345554", "AQAAAAEAACcQAAAAEKqEg81yYl06VHzZ8tijZMGVPw/XllW527e7xUI4lVzT65pC1V4gkbX1mrDaEg0maA==", "080062066852", true, "13fd605b-6828-46d0-ac6f-5c69fcd9da64", false, "customer@yahoo.com", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
